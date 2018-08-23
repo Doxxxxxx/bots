@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
-from django.conf.urls import patterns, include, url
+from django.conf.urls import  include, url
+
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required, user_passes_test
 from . import views
@@ -14,7 +15,7 @@ superuser_required = user_passes_test(lambda u: u.is_superuser)
 
 run_permission = user_passes_test(lambda u: u.has_perm('bots.change_mutex'))
 
-urlpatterns = patterns(
+urlpatterns = [
     '',
     url(r'^login.*', 'django.contrib.auth.views.login', {'template_name': 'admin/login.html'}),
     url(r'^logout.*', 'django.contrib.auth.views.logout', {'next_page': '/'}),
@@ -48,6 +49,6 @@ urlpatterns = patterns(
     url(r'^sendtestmail.*', superuser_required(views.sendtestmailmanagers)),
     #catch-all
     url(r'^.*', 'bots.views.index'),
-    )
+]
 
 handler500 = 'bots.views.server_error'
